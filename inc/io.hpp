@@ -70,7 +70,8 @@ void readLayout(Layout *layout, char const *file_path){
                         io::tokenLine(tokens, line);
                         if(tokens.size() == static_cast<unsigned int>(2) && tokens[0] == "Via_num") break;
                     }
-                    for(int j = 0; j < stoi(tokens[1]); j++){
+                    int tmp_size = stoi(tokens[1]);
+                    for(int j = 0; j < tmp_size; j++){
                         getline(in_file, line); io::tokenLine(tokens, line);
                         tmp_net.vialist.emplace(stoi(tokens[0]), stoi(tokens[1]));
                     }
@@ -81,7 +82,16 @@ void readLayout(Layout *layout, char const *file_path){
                     tmp_net.horizontal_segments.resize(stoi(tokens[1]));
                     for(unsigned j = 0; j < tmp_net.horizontal_segments.size(); j++){
                         getline(in_file, line); io::tokenLine(tokens, line);
-                        tmp_net.horizontal_segments.at(j) = Segment_Draw{stoi(tokens[0]), stoi(tokens[1]), stoi(tokens[2]), stoi(tokens[0]), stoi(tokens[1]), stoi(tokens[2])};
+                        tmp_net.horizontal_segments.at(j) = Segment_Draw{stoi(tokens[0]), stoi(tokens[1]), stoi(tokens[2]), stoi(tokens[3]) - 1, stoi(tokens[4])  - 1, stoi(tokens[5])};
+                    }
+                    while(getline(in_file, line)){
+                        io::tokenLine(tokens, line);
+                        if(tokens.size() == static_cast<unsigned int>(2) && tokens[0] == "V_segment_num") break;
+                    }
+                    tmp_net.vertical_segments.resize(stoi(tokens[1]));
+                    for(unsigned j = 0; j < tmp_net.vertical_segments.size(); j++){
+                        getline(in_file, line); io::tokenLine(tokens, line);
+                        tmp_net.vertical_segments.at(j) = Segment_Draw{stoi(tokens[0]), stoi(tokens[1]), stoi(tokens[2]), stoi(tokens[3]) - 1, stoi(tokens[4])  - 1, stoi(tokens[5])};
                     }
                     layout->netlist.at(i) = tmp_net;
                 }
@@ -116,7 +126,6 @@ void writeLayout(Layout *layout, char const *file_path){
     }
     out_file << "Net_num " << layout->netlist.size() << "\n";
     for(unsigned i = 0; i < layout->netlist.size(); i++){
-        layout->netlist.at(i).segmentRegularize();
         out_file << "Net_id " << layout->netlist.at(i).id << "\n";
         out_file << "pin_num " << layout->netlist.at(i).pins.size() << "\n";
         for(unsigned j = 0; j < layout->netlist.at(i).pins.size(); j++){

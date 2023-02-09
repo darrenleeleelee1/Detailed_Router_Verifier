@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run dr_verifier",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dr_verifier",
+            "args": [
+                "${workspaceFolder}/case/test0.txt"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

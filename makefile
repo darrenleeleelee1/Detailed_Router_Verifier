@@ -2,7 +2,10 @@
 CC = g++
 
 # Specify the flags to use during compilation
-CFLAGS = -std=c++17 -Wall -O0 -g
+# For Debug
+# CFLAGS = -std=c++17 -Wall -O0 -g
+# For Using
+CFLAGS = -std=c++17 -Wall -O3 -static
 
 # Specify the path to the project's source files
 SRC_DIR = src
@@ -20,7 +23,7 @@ INCLUDE_PATHS = -I $(INCLUDE_DIR)
 OBJ_DIR = obj
 
 # Specify the name of the executable to generate
-EXE = router
+EXE = dr_verifier
 
 # Specify the names of the source files
 SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)

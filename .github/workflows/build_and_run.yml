@@ -1,0 +1,39 @@
+name: result
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_verify_and_save:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout code
+      uses: actions/checkout@v3
+    
+    
+    - name: show dependency
+      run: |
+          echo "gcc path: $(which gcc)"
+          echo "gcc version: $(gcc --version)"
+
+    - name: create obj directory
+      run: mkdir ${{ github.workspace }}/obj 
+
+    - name: build Router
+      run:  make -j8
+
+    - name: run Router
+      run:  |
+        for i in {0..9}; do
+          echo "Running case test$i.txt."
+          ./dr_verifier ./case/test$i.txt > ./out/test$i.txt
+          if grep -q "Error" ./out/test$i.txt; then
+              echo "Error found in case test$i.txt."
+              exit 1
+          else
+              echo "Passed."
+          fi
+        done
