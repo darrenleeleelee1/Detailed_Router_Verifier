@@ -23,7 +23,7 @@ INCLUDE_PATHS = -I $(INCLUDE_DIR)
 OBJ_DIR = obj
 
 # Specify the name of the executable to generate
-EXE = dr_verifier
+EXE = verifier
 
 # Specify the names of the source files
 SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
