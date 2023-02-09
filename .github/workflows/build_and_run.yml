@@ -1,9 +1,6 @@
 name: result
 
-on:
-  push:
-    branches:
-      - master
+on: [push]
 
 jobs:
   build_and_verify_and_save:
