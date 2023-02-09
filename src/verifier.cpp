@@ -15,7 +15,6 @@ bool verifier::checkSegmentOverlapping(Layout *layout){
             }
         }
     }
-
     for(auto n : layout->netlist){
         for(auto hs : n.horizontal_segments){
             for(int i = std::min(hs.start_point.x, hs.end_point.x); i <= std::max(hs.start_point.x, hs.end_point.x); i++){
