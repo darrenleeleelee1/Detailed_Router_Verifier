@@ -47,6 +47,17 @@ bool verifier::checkSegmentOverlapping(Layout *layout){
             }
         }
     }
+    for(auto &n : layout->netlist){
+        for(auto &p : n.pins){
+            if(grid.at(p.x).at(p.y).at(p.z).net_id != n.id && grid.at(p.x).at(p.y).at(p.z).net_id != -1){
+                std::cout << "Error: Net#" << n.id << " pin" << p.toString() << " overlap with Net# " << grid.at(p.x).at(p.y).at(p.z).net_id;
+                for(auto s : grid.at(p.x).at(p.y).at(p.z).segments){
+                    std::cout << s->start_point.toString() << "-" << s->end_point.toString() << " ";
+                }
+                std::cout << "\n";
+            }
+        }
+    }
     return pass;
 }
 std::pair<bool, bool> verifier::checkNetOpenAndConnectivity(Layout *layout){
