@@ -55,6 +55,7 @@ bool verifier::checkSegmentOverlapping(Layout *layout){
                     std::cout << s->start_point.toString() << "-" << s->end_point.toString() << " ";
                 }
                 std::cout << "\n";
+                pass = false;
             }
         }
     }
