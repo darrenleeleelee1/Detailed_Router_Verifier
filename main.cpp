@@ -13,7 +13,8 @@ int main(int argc, char const *argv[]){
 
     std::cout << "Start checking net openning and connectivity.\n";
     auto [no, c] = verifier::checkNetOpenAndConnectivity(&layout);
-    std::cout << "Net openning and connectivity: " << (no ? "Pass" : "Fail") << ".\n";
+    std::cout << "Net openning: " << (no ? "Pass" : "Fail") << ".\n";
+    std::cout << "Net connectivity: " << (c ? "Pass" : "Fail") << ".\n";
 
 
     std::cout << "---Summary---\n";
